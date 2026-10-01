@@ -1,0 +1,503 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans:
+        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-field: var(--field);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    /* ヘッダー（色は下の [data-theme] で定義） */
+    --color-header: var(--header);
+    --color-header-foreground: var(--header-foreground);
+    --color-header-muted: var(--header-muted);
+    --color-header-accent: var(--header-accent);
+    --color-header-border: var(--header-border);
+    --color-header-field: var(--header-field);
+    --color-header-button: var(--header-button);
+    --color-header-button-foreground: var(--header-button-foreground);
+    --color-header-button-hover: var(--header-button-hover);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@layer utilities {
+    body,
+    html {
+        --font-sans:
+            'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+            'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+            'Noto Color Emoji';
+    }
+}
+
+:root {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(0 0% 3.9%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 3.9%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 3.9%);
+    --primary: hsl(0 0% 9%);
+    --primary-foreground: hsl(0 0% 98%);
+    --secondary: hsl(0 0% 92.1%);
+    --secondary-foreground: hsl(0 0% 9%);
+    --muted: hsl(0 0% 96.1%);
+    --muted-foreground: hsl(0 0% 45.1%);
+    --accent: hsl(0 0% 96.1%);
+    --accent-foreground: hsl(0 0% 9%);
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 92.8%);
+    --input: hsl(0 0% 89.8%);
+    --field: hsl(0 0% 100%);
+    --ring: hsl(0 0% 3.9%);
+    --chart-1: hsl(12 76% 61%);
+    --chart-2: hsl(173 58% 39%);
+    --chart-3: hsl(197 37% 24%);
+    --chart-4: hsl(43 74% 66%);
+    --chart-5: hsl(27 87% 67%);
+    --radius: 0.5rem;
+}
+
+.dark {
+    --background: hsl(0 0% 3.9%);
+    --foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 3.9%);
+    --card-foreground: hsl(0 0% 98%);
+    --popover: hsl(0 0% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+    --primary: hsl(0 0% 98%);
+    --primary-foreground: hsl(0 0% 9%);
+    --secondary: hsl(0 0% 14.9%);
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(0 0% 16.08%);
+    --muted-foreground: hsl(0 0% 63.9%);
+    --accent: hsl(0 0% 14.9%);
+    --accent-foreground: hsl(0 0% 98%);
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 14.9%);
+    --input: hsl(0 0% 14.9%);
+    --field: hsl(0 0% 9%);
+    --ring: hsl(0 0% 83.1%);
+    --chart-1: hsl(220 70% 50%);
+    --chart-2: hsl(160 60% 45%);
+    --chart-3: hsl(30 80% 55%);
+    --chart-4: hsl(280 65% 60%);
+    --chart-5: hsl(340 75% 55%);
+}
+
+/*
+  テーマ色（サイト設定。app/Enums/ThemeColor）。<html data-theme="…"> で画面全体の配色を切り替える。
+  設定画面の色見本も同じ属性で各色を表示する。候補は有彩色 12 色と黒（neutral）。
+
+  - 主色（ボタン・選択状態・フォーカスリング・進捗バー）: 白文字とのコントラストを 4.5:1 以上に
+    保つため、ライトは Tailwind の 600（黄〜緑系は 700）、ダークは明るい 400 に濃い 950 の文字を載せる。
+    そのままでは鮮やかすぎるため、灰色を混ぜて彩度を抑える（混ぜる量と灰色の明るさは、白文字とのコントラストが
+    全色 4.5:1 以上になる範囲で選んでいる。最も低いのはローズ）
+  - ヘッダー: ライトは淡い色相の地に濃い文字、ダークは色相を残して暗く沈めた色で塗る。
+    ヘッダー上の「新規ページ」「ログイン」ボタンは主色
+  - 入力欄（--field）: 背景に埋もれないよう、ライトは白、ダークは背景より一段明るい色にする
+  - 背景・カード・枠線・薄い面（muted / accent / secondary）: 無彩色の代わりにテーマの色相（--theme-hue）で
+    わずかに色を付ける。色の付け方は --theme-tint（0 で無彩色、1 で標準）で色ごとに調整し、
+    全体の強さは下の 0.7 で抑えている
+*/
+[data-theme] {
+    --t: calc(var(--theme-tint, 1) * 0.7);
+    --h: var(--theme-hue, 0);
+
+    --background: oklch(0.982 calc(0.012 * var(--t)) var(--h));
+    /* 入力欄の地。背景より明るくして、入力できる場所だと分かるようにする */
+    --field: oklch(1 0 0);
+    --foreground: oklch(0.2 calc(0.03 * var(--t)) var(--h));
+    /* カード（記事の本体・ダイアログなど）は白。色付きの背景から浮かせる */
+    --card: oklch(1 0 0);
+    --card-foreground: var(--foreground);
+    --popover: var(--card);
+    --popover-foreground: var(--foreground);
+    --secondary: oklch(0.93 calc(0.04 * var(--t)) var(--h));
+    --secondary-foreground: oklch(0.3 calc(0.09 * var(--t)) var(--h));
+    --muted: oklch(0.945 calc(0.024 * var(--t)) var(--h));
+    --muted-foreground: oklch(0.5 calc(0.045 * var(--t)) var(--h));
+    --accent: oklch(0.925 calc(0.05 * var(--t)) var(--h));
+    --accent-foreground: oklch(0.3 calc(0.1 * var(--t)) var(--h));
+    --border: oklch(0.89 calc(0.032 * var(--t)) var(--h));
+    --input: oklch(0.86 calc(0.036 * var(--t)) var(--h));
+
+    --primary: color-mix(in oklab, var(--theme-light) 88%, oklch(0.5 0 0));
+    --primary-foreground: var(--theme-light-foreground, #ffffff);
+    --ring: var(--primary);
+
+    /*
+      ヘッダー。ライトは淡い色相の地に濃い文字（濃い色で塗ると重く見えるため）。
+      「新規ページ」「ログイン」ボタンは主色、検索欄は入力欄と同じ白、下端は色相付きの線で区切る
+    */
+    --header: oklch(0.935 calc(0.05 * var(--t)) var(--h));
+    --header-foreground: oklch(0.28 calc(0.08 * var(--t)) var(--h));
+    --header-border: oklch(0.86 calc(0.06 * var(--t)) var(--h));
+    --header-field: var(--field);
+    --header-button: var(--primary);
+    --header-button-foreground: var(--primary-foreground);
+    --header-button-hover: color-mix(in oklab, var(--primary) 88%, black);
+}
+
+[data-theme]:is(.dark, .dark *) {
+    --background: oklch(0.185 calc(0.02 * var(--t)) var(--h));
+    --foreground: oklch(0.96 calc(0.01 * var(--t)) var(--h));
+    --card: oklch(0.22 calc(0.026 * var(--t)) var(--h));
+    --field: oklch(0.235 calc(0.028 * var(--t)) var(--h));
+    --secondary: oklch(0.295 calc(0.045 * var(--t)) var(--h));
+    --secondary-foreground: oklch(0.95 calc(0.015 * var(--t)) var(--h));
+    --muted: oklch(0.26 calc(0.032 * var(--t)) var(--h));
+    --muted-foreground: oklch(0.72 calc(0.035 * var(--t)) var(--h));
+    --accent: oklch(0.315 calc(0.055 * var(--t)) var(--h));
+    --accent-foreground: oklch(0.96 calc(0.015 * var(--t)) var(--h));
+    --border: oklch(0.32 calc(0.036 * var(--t)) var(--h));
+    --input: oklch(0.37 calc(0.04 * var(--t)) var(--h));
+
+    --primary: color-mix(in oklab, var(--theme-dark) 85%, oklch(0.72 0 0));
+    --primary-foreground: var(--theme-dark-foreground);
+    --ring: var(--primary);
+
+    /* ダークのヘッダーは、色相を残して暗く沈めた色 */
+    --header: oklch(0.26 calc(0.06 * var(--t)) var(--h));
+    --header-foreground: oklch(0.97 calc(0.01 * var(--t)) var(--h));
+    --header-border: oklch(0.34 calc(0.06 * var(--t)) var(--h));
+    --header-field: color-mix(in oklab, var(--header) 88%, white);
+    --header-button: var(--primary);
+    --header-button-foreground: var(--primary-foreground);
+    --header-button-hover: color-mix(in oklab, var(--primary) 88%, white);
+}
+
+/*
+  各色の既定値。設定画面の色見本は <html data-theme> の中に別の data-theme を入れ子にするため、
+  色ごとに書かない値も親から引き継がないよう、ここで毎回リセットする（下の各色の定義が後勝ちで上書きする）。
+  ヘッダー上の文字・ホバー・入力欄は、ヘッダーの文字色を薄めて作る（どの色でも読めるように）
+*/
+[data-theme] {
+    --theme-hue: 0;
+    --theme-tint: 1;
+    --theme-light-foreground: #ffffff;
+    --header-muted: color-mix(
+        in oklab,
+        var(--header-foreground) 78%,
+        transparent
+    );
+    --header-accent: color-mix(
+        in oklab,
+        var(--header-foreground) 16%,
+        transparent
+    );
+}
+
+/* --theme-hue は Tailwind 4 の各色（oklch）の色相 */
+[data-theme='blue'] {
+    --theme-hue: 262;
+    --theme-light: #2563eb;
+    --theme-dark: #60a5fa;
+    --theme-dark-foreground: #172554;
+}
+[data-theme='indigo'] {
+    --theme-hue: 277;
+    --theme-light: #4f46e5;
+    --theme-dark: #818cf8;
+    --theme-dark-foreground: #1e1b4b;
+}
+[data-theme='violet'] {
+    --theme-hue: 293;
+    --theme-light: #7c3aed;
+    --theme-dark: #a78bfa;
+    --theme-dark-foreground: #2e1065;
+}
+[data-theme='pink'] {
+    --theme-hue: 354;
+    --theme-light: #be185d;
+    --theme-dark: #f472b6;
+    --theme-dark-foreground: #500724;
+}
+[data-theme='rose'] {
+    --theme-hue: 16;
+    --theme-light: #e11d48;
+    --theme-dark: #fb7185;
+    --theme-dark-foreground: #4c0519;
+}
+[data-theme='red'] {
+    --theme-hue: 27;
+    --theme-light: #dc2626;
+    --theme-dark: #f87171;
+    --theme-dark-foreground: #450a0a;
+}
+[data-theme='orange'] {
+    --theme-hue: 47;
+    --theme-light: #c2410c;
+    --theme-dark: #fb923c;
+    --theme-dark-foreground: #431407;
+}
+[data-theme='amber'] {
+    --theme-hue: 70;
+    --theme-light: #b45309;
+    --theme-dark: #fbbf24;
+    --theme-dark-foreground: #451a03;
+}
+[data-theme='green'] {
+    --theme-hue: 150;
+    --theme-light: #15803d;
+    --theme-dark: #4ade80;
+    --theme-dark-foreground: #052e16;
+}
+[data-theme='teal'] {
+    --theme-hue: 183;
+    --theme-light: #0f766e;
+    --theme-dark: #2dd4bf;
+    --theme-dark-foreground: #042f2e;
+}
+[data-theme='cyan'] {
+    --theme-hue: 215;
+    --theme-light: #0e7490;
+    --theme-dark: #22d3ee;
+    --theme-dark-foreground: #083344;
+}
+/* スレートは青みの灰色なので、面の色付けを控えめにする */
+[data-theme='slate'] {
+    --theme-hue: 257;
+    --theme-tint: 0.5;
+    --theme-light: #475569;
+    --theme-dark: #94a3b8;
+    --theme-dark-foreground: #020617;
+}
+/* スターターキット既定の黒（ダークでは白）。面は無彩色のまま */
+[data-theme='neutral'] {
+    --theme-tint: 0;
+    --theme-light: hsl(0 0% 9%);
+    --theme-light-foreground: hsl(0 0% 98%);
+    --theme-dark: hsl(0 0% 98%);
+    --theme-dark-foreground: hsl(0 0% 9%);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+    /* 固定ヘッダー（WikiHeader の h-14）の分だけ、見出しへのジャンプ位置を下げる */
+    html {
+        --header-height: 3.5rem;
+        scroll-padding-top: var(--header-height);
+    }
+}
+
+/*
+  Wiki 本文（サーバーで描画した Markdown の HTML）。閲覧・版の表示・編集プレビューで共通。
+  色はテーマのトークンで指定し、ライト/ダークの両方で読めるようにする。
+*/
+:root {
+    --wiki-link: hsl(221 83% 45%);
+    --wiki-link-new: hsl(0 72% 45%);
+    --wiki-code: hsl(330 70% 40%);
+    --wiki-diff-mark: hsl(54 100% 62% / 0.45);
+}
+
+.dark {
+    --wiki-link: hsl(213 94% 68%);
+    --wiki-link-new: hsl(0 91% 71%);
+    --wiki-code: hsl(330 80% 75%);
+    --wiki-diff-mark: hsl(50 90% 45% / 0.3);
+}
+
+/*
+  リンクもテーマの主色に合わせる。ただし赤系（ピンク・ローズ・赤・オレンジ・アンバー）は
+  赤リンク（未作成ページ）と見分けにくくなり、スレート・黒はリンクに見えにくいため、既定の青のままにする
+*/
+:is(
+    [data-theme='blue'],
+    [data-theme='indigo'],
+    [data-theme='violet'],
+    [data-theme='green'],
+    [data-theme='teal'],
+    [data-theme='cyan']
+) {
+    --wiki-link: var(--primary);
+}
+
+@layer components {
+    .wiki-body {
+        @apply text-[0.9375rem] leading-relaxed break-words;
+    }
+    .wiki-body > :first-child {
+        @apply mt-0;
+    }
+    .wiki-body h1,
+    .wiki-body h2,
+    .wiki-body h3,
+    .wiki-body h4,
+    .wiki-body h5,
+    .wiki-body h6 {
+        @apply scroll-mt-4 font-semibold;
+    }
+    .wiki-body h1 {
+        @apply mt-8 mb-3 border-b pb-1 text-2xl;
+    }
+    .wiki-body h2 {
+        @apply mt-7 mb-3 border-b pb-1 text-xl;
+    }
+    .wiki-body h3 {
+        @apply mt-6 mb-2 text-lg;
+    }
+    .wiki-body h4,
+    .wiki-body h5,
+    .wiki-body h6 {
+        @apply mt-5 mb-2 text-base;
+    }
+    .wiki-body p,
+    .wiki-body ul,
+    .wiki-body ol,
+    .wiki-body blockquote,
+    .wiki-body pre,
+    .wiki-body table {
+        @apply my-3;
+    }
+    .wiki-body ul {
+        @apply list-disc pl-6;
+    }
+    .wiki-body ol {
+        @apply list-decimal pl-6;
+    }
+    .wiki-body li {
+        @apply my-1;
+    }
+    .wiki-body li > ul,
+    .wiki-body li > ol {
+        @apply my-1;
+    }
+    /* チェックリスト（GFM のタスクリスト） */
+    .wiki-body li:has(> input[type='checkbox']) {
+        @apply list-none;
+    }
+    .wiki-body li > input[type='checkbox'] {
+        @apply mr-1.5 -ml-5 align-middle;
+    }
+    .wiki-body a {
+        color: var(--wiki-link);
+        @apply underline-offset-2 hover:underline;
+    }
+    .wiki-body a.wikilink-new {
+        color: var(--wiki-link-new);
+    }
+    .wiki-body blockquote {
+        @apply border-l-4 pl-4 text-muted-foreground;
+    }
+    .wiki-body code {
+        color: var(--wiki-code);
+        @apply rounded bg-muted px-1 py-0.5 font-mono text-[0.85em];
+    }
+    .wiki-body pre {
+        @apply overflow-x-auto rounded-md bg-muted px-4 py-3;
+    }
+    .wiki-body pre code {
+        @apply bg-transparent p-0 text-foreground;
+    }
+    .wiki-body table {
+        @apply block w-max max-w-full border-collapse overflow-x-auto text-sm;
+    }
+    .wiki-body th,
+    .wiki-body td {
+        @apply border px-3 py-1.5;
+    }
+    .wiki-body th {
+        @apply bg-muted font-semibold;
+    }
+    .wiki-body hr {
+        @apply my-6;
+    }
+    .wiki-body img {
+        @apply max-w-full;
+    }
+
+    /*
+      差分画面のプレビュー比較で、変わったブロックを黄色のマーカーのように塗る。
+      box-shadow で塗りを外側へ少し広げ、行の配置は変えない
+    */
+    .wiki-body .wiki-diff-changed,
+    .wiki-body .wiki-diff-changed :is(th, td),
+    .wiki-diff-legend {
+        background-color: var(--wiki-diff-mark);
+        box-shadow: 0 0 0 0.25rem var(--wiki-diff-mark);
+        @apply rounded-xs;
+    }
+    .wiki-body .wiki-diff-changed :is(th, td) {
+        box-shadow: none;
+    }
+    /* ブロックの中で文字の違う部分だけを塗る（InlineDiffMarker が入れる <mark>） */
+    .wiki-body mark.wiki-diff-mark {
+        background-color: var(--wiki-diff-mark);
+        color: inherit;
+        @apply rounded-xs px-px;
+    }
+    .wiki-diff-legend {
+        @apply text-foreground;
+    }
+}

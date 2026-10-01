@@ -1,0 +1,54 @@
+# docker/Dockerfile 用のビルドコンテキストの除外設定（BuildKit は Dockerfile と同名の .dockerignore を優先する）
+
+# リポジトリ管理・エディター・AI ツール
+.git
+.github
+.idea
+.vscode
+.fleet
+.zed
+.claude
+.cursor
+.agents
+CLAUDE.md
+AGENTS.md
+doc
+
+# ビルドで作り直すもの・ビルドの出力
+dist
+node_modules
+vendor
+public/build
+public/hot
+public/storage
+public/fonts-manifest.dev.json
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+bootstrap/ssr
+resources/js/actions
+resources/js/routes
+resources/js/wayfinder
+
+# 開発環境の設定・データ
+.env
+.env.*
+!.env.example
+compose.yaml
+database/*.sqlite
+database/*.sqlite-*
+.phpunit.cache
+.phpunit.result.cache
+tests
+
+# 実行時にできるファイル（ディレクトリと .gitignore は残す）
+storage/*.key
+storage/pail
+storage/inertia-devtools
+storage/app/private/*
+storage/app/public/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/logs/*
+!storage/**/.gitignore

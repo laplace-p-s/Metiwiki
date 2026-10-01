@@ -1,0 +1,36 @@
+# MetiwikiをDockerで動かすためのcomposeファイル。配布用zipのルートにcompose.yamlとして入る
+# （リポジトリではdocker/runtime/に置く。リポジトリのルートのcompose.yamlは開発用のSail）。
+# 通常はscripts/docker.shから使う。
+#
+#   起動: docker compose up -d --build
+#
+# 設定は、zipを展開したフォルダの直下にmetiwiki.envを作って書く（任意）。
+# 1行に1項目ずつ「項目名=値」の形で書き、「#」で始まる行はコメントになる。例:
+#   METIWIKI_PORT=8080          公開するポート（scripts/docker.shはcomposeの変数としても読み込む）
+#   APP_URL=https://wiki.example.com
+#   TRUSTED_PROXIES=*           HTTPSのリバースプロキシの後ろに置くとき
+#   MAIL_MAILER=smtp …          メールによるパスワードリセットを使うとき
+#
+# データ（SQLite・画像・ログ・APP_KEY）はボリュームmetiwiki-app_dataに残り、コンテナを作り直しても消えない。
+# 1台で複数のWikiを動かすときは、プロジェクト名（COMPOSE_PROJECT_NAME）とMETIWIKI_PORTを変える
+# （ボリューム名は<プロジェクト名>_dataになる）。
+
+name: metiwiki-app
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        image: metiwiki:local
+        restart: unless-stopped
+        ports:
+            - '${METIWIKI_PORT:-8080}:80'
+        env_file:
+            - path: metiwiki.env
+              required: false
+        volumes:
+            - data:/data
+
+volumes:
+    data:

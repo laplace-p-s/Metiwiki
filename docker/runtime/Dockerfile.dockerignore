@@ -1,0 +1,23 @@
+# docker/Dockerfile（実行用イメージ）のビルドコンテキストの除外設定。配布用zipにdocker/Dockerfile.dockerignoreとして入る。
+# 除外したものはイメージに入らない（docker/の設定ファイルはDockerfileが個別にCOPYする）
+
+# Docker用のファイル
+docker/*
+!docker/apache.conf
+!docker/php.ini
+!docker/entrypoint.sh
+compose.yaml
+scripts
+
+# 設定とデータ（Docker版はmetiwiki.envの環境変数とボリューム/dataを使う。
+# zipをPHPサーバーで使った後のフォルダでビルドしても、.envやデータベースをイメージに入れない）
+.env
+.env.*
+metiwiki.env
+database/*.sqlite
+database/*.sqlite-*
+storage
+# キャッシュ（PHPサーバーで使った後だとconfig.phpに.envの内容が入っている）。
+# パッケージ一覧を含めて、起動時にwww-dataが作り直す
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
